@@ -15,21 +15,25 @@ public class SecurityController {
 	@Autowired
 	private MemberService memService;
 	
-	@GetMapping("login")
-	public void loginView() {}
-
+	// 테스트용 코드
+	@GetMapping("getMember")
+	public Member getMember(Member member) {
+		return memService.getMember(member);
+	}
+	
 	@PostMapping("/login")
 	public void login(Member member) {
 		 memService.login(member);
 		return;
 	}
 	
-	@GetMapping("/signUp")
-	public void registView() {}
-	
 	@PostMapping("/signUp")
 	public void regist(Member member) {
 		memService.signUp(member);
 		return;
 	}
+	
+	@GetMapping("/logout")
+	public void logout() {}
+	
 }

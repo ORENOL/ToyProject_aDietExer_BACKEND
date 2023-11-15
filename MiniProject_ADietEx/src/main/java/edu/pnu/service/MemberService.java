@@ -36,12 +36,7 @@ public class MemberService{
 
 
 	public void signUp(Member member) {
-		memRepo.save(Member.builder()
-				.id(member.getId())
-				.password(member.getPassword())
-				.email(member.getEmail())
-				.nickname(member.getNickname())
-				.build());
+		memRepo.save(member);
 		
 	}
 }
