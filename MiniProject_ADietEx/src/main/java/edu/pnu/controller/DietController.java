@@ -3,6 +3,7 @@ package edu.pnu.controller;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,9 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.pnu.domain.Diet;
 import edu.pnu.domain.Member;
+import edu.pnu.service.FoodService;
 
 @RestController
 public class DietController {
+	
+	@Autowired
+	private FoodService foodService;
 
 	
 	@GetMapping("/getAllDiet")
@@ -34,9 +39,12 @@ public class DietController {
 		return null;
 	}
 	
-	@PostMapping("/addDiet")
-	public void addDiet(Member member, Diet diet) {
-		// 멤버가 식단을 DB에 등록함
+	@GetMapping("/addFood")
+	public void addDietView() {}
+	
+	@PostMapping("/addFood")
+	public void addDiet(Diet diet) {
+		foodService.addFood(diet);
 		return;
 	}
 	

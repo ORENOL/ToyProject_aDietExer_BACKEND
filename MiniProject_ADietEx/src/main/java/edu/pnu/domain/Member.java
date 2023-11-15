@@ -5,6 +5,8 @@ import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -25,13 +27,16 @@ import lombok.ToString;
 public class Member {
 
 	@Id
-	@Column(name="Member_ID")
 	private String id;
 	private String nickname;
 	private String password;
 	@Temporal(TemporalType.TIMESTAMP)
 	@Builder.Default
 	private Date regidate = new Date();
+	@Enumerated(EnumType.STRING)
+	private Role role;
 	private String email;
+	
+	
 
 }
