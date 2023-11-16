@@ -20,7 +20,7 @@ public class Test {
 	@org.junit.jupiter.api.Test
 	public void InsertMember() {
 		memRepo.save(Member.builder()
-				.id("member")
+				.username("member")
 				.password(encoder.encode("abcd"))
 				.role(Role.ROLE_MEMBER)
 				.build());

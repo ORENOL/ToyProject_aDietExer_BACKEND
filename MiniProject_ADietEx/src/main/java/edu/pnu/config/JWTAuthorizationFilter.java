@@ -54,12 +54,12 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 	Member findmember = opt.get();
 	
 	// DB에서 읽은 사용자 정보로 UserDetails 타입 객체 생성
-	User user = new User(findmember.getId(), findmember.getPassword(),
+	User user = new User(findmember.getUsername(), findmember.getPassword(),
 			AuthorityUtils.createAuthorityList(findmember.getRole().toString()));
 	
 	// Authentication 객체 생성 , 사용자명과 권한 정보 보유
 	Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-	
+
 	// 시큐리티 세션에 등록
 	SecurityContextHolder.getContext().setAuthentication(auth);
 	

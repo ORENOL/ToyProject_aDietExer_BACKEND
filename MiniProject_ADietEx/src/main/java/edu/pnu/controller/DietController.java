@@ -22,8 +22,7 @@ public class DietController {
 
 	
 	@GetMapping("/getAllDiet")
-	public List<Diet> getAllDiet(Member member) {
-		// 멤버가 등록한 모든 식단을 DB로부터 가져옴
+	public List<Diet> getAllDiet() {
 		return null;
 	}
 	
@@ -45,17 +44,16 @@ public class DietController {
 	@PostMapping("/addFood")
 	public void addDiet(Diet diet) {
 		foodService.addFood(diet);
-		return;
 	}
 	
 	@PutMapping("/updateDiet")
-	public void updateDiet(Diet diet) {
+	public void updateDiet(Diet diet1, Diet diet2) {
 		// 멤버가 식단을 DB에서 수정함
 	}
 	
 	@DeleteMapping("/deleteDiet")
 	public void deleteDiet(Diet diet) {
-		// 멤버가 식단을 DB에서 삭제함
+		foodService.deleteDiet(diet);
 	}
 }
 

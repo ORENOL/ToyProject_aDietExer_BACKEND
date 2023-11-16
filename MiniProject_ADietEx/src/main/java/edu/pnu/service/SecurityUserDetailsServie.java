@@ -23,7 +23,7 @@ public class SecurityUserDetailsServie implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Member member = memRepo.findById(username).orElseThrow(()->new UsernameNotFoundException("사용자 없음"));
-		return new User(member.getId(), member.getPassword(), AuthorityUtils.createAuthorityList(member.getRole().toString()));	
+		return new User(member.getUsername(), member.getPassword(), AuthorityUtils.createAuthorityList(member.getRole().toString()));	
 	}
 	
 	

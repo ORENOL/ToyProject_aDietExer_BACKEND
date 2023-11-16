@@ -2,7 +2,9 @@ package edu.pnu.service;
 
 import java.util.Optional;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import edu.pnu.domain.Member;
@@ -13,10 +15,13 @@ public class MemberService{
 	
 	@Autowired
 	private MemberRepository memRepo;
+	
+	@Autowired
+	private PasswordEncoder encoder;
 
 
 	public Member getMember(Member member) {
-		Optional<Member> mem = memRepo.findById(member.getId());
+		Optional<Member> mem = memRepo.findById(member.getUsername());
 		if (!mem.isPresent())
 			return null;
 		return mem.get();
@@ -36,6 +41,7 @@ public class MemberService{
 
 
 	public void signUp(Member member) {
+		member.setPassword(encoder.encode(member.getPassword()));
 		memRepo.save(member);
 		
 	}

@@ -43,16 +43,16 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 		ObjectMapper mapper = new ObjectMapper();
 		Member member = null;
-		System.out.println(request);
+	
 		try {
 			// 요청을 읽고 파라미터를 멤버클래스에 맞게 등록
 			member = mapper.readValue(request.getInputStream(), Member.class);
+			System.out.println(member);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		// 등록된 정보로 인증절차를 수행할 토큰 생성
-		Authentication authToken = new UsernamePasswordAuthenticationToken(member.getId(), member.getPassword());
+		Authentication authToken = new UsernamePasswordAuthenticationToken(member.getUsername(), member.getPassword());
 		
 		// 인증 절차 수행
 		Authentication auth = authManager.authenticate(authToken);
@@ -71,7 +71,12 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 				.withClaim("username", user.getUsername())
 				.sign(Algorithm.HMAC256("edu.pnu.jwt"));
 		// 증명서(토큰)을 헤더에 담아 클라이언트에게 전달
-		response.addHeader("Authorizaiton", "Bearer " + token);
+		response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+		response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+		response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
+		response.setHeader("Access-Control-Allow-Credentials", "true");
+		response.setHeader("Access-Control-Expose-Headers", "Authorization");
+		response.addHeader("Authorization", "Bearer " + token);
 	}
 		
 }

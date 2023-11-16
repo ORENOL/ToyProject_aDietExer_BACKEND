@@ -1,22 +1,17 @@
 package edu.pnu.controller;
 
-import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import edu.pnu.domain.Member;
 import edu.pnu.service.MemberService;
+import jakarta.servlet.http.HttpServletResponse;
 
 
-@Controller
+@RestController
 public class SecurityController {
 
 	@Autowired
@@ -27,22 +22,12 @@ public class SecurityController {
 	public Member getMember(Member member) {
 		return memService.getMember(member);
 	}
-	
-//	@GetMapping("/login")
-//	public ModelAndView loginView() {
-//		ModelAndView mv = new ModelAndView("redirect:http://localhost:3000/main");
-//		return mv;
-//	}
-	
-	
-	@PostMapping("/login")
-	public void login(Member member) {
-		return;
+		
+	@GetMapping("/test")
+	public String test(HttpServletResponse resp) {
+		resp.addHeader("Authorization", "ABCD");
+		return "하이";
 	}
-	
-	@GetMapping("/login")
-	public void loginView() {}
-	
 	
 	@PostMapping("/signUp")
 	public void regist(Member member) {

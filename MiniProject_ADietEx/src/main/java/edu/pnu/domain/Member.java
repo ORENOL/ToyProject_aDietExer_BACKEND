@@ -27,9 +27,9 @@ import lombok.ToString;
 public class Member {
 
 	@Id
-	private String id;
-	private String nickname;
+	private String username;
 	private String password;
+	private String nickname;
 	@Temporal(TemporalType.TIMESTAMP)
 	@Builder.Default
 	private Date regidate = new Date();
