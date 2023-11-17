@@ -2,8 +2,11 @@ package edu.pnu.security;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -20,6 +23,7 @@ import org.springframework.web.filter.CorsFilter;
 import edu.pnu.config.JWTAuthenticationFilter;
 import edu.pnu.config.JWTAuthorizationFilter;
 import edu.pnu.persistence.MemberRepository;
+import edu.pnu.service.CustomOAuth2UserService;
 
 
 @EnableWebSecurity
@@ -37,17 +41,23 @@ public class SecurityConfig {
 		return new BCryptPasswordEncoder();
 	}
 	
+
+	
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//		http.authorizeHttpRequests(auth->auth
-//				.requestMatchers(new AntPathRequestMatcher("/main/**")).authenticated()
-//				.anyRequest().permitAll()
-//				);
-//		
+		http.authorizeHttpRequests(auth->auth
+				.requestMatchers(new AntPathRequestMatcher("/main/**")).authenticated()
+				.anyRequest().permitAll()
+				);
+		
 		http.csrf(cs->cs.disable());
 		
 		http.formLogin(frmLogin->frmLogin.disable());
 		http.httpBasic(basic->basic.disable());
+		
+		http.oauth2Login(oauth2->{
+			oauth2.loginPage("/login");
+			});
 		
 		http.sessionManagement(ssmn->ssmn.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		
@@ -55,9 +65,6 @@ public class SecurityConfig {
 		http.addFilter(new JWTAuthenticationFilter(authenticationConfiguration.getAuthenticationManager()));
 		
 		http.addFilterBefore(new JWTAuthorizationFilter(memRepo), AuthorizationFilter.class);
-		
-		http.authorizeHttpRequests(auth -> auth
-				.anyRequest().permitAll());
 
 		return http.build();
 	}
@@ -75,5 +82,6 @@ public class SecurityConfig {
 		source.registerCorsConfiguration("/**", config); // 교차를 허용할 Origin의 URL
 		return new CorsFilter(source);
 	}
+
 	
 }

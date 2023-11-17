@@ -25,6 +25,9 @@ import lombok.RequiredArgsConstructor;
 public class JWTAuthorizationFilter extends OncePerRequestFilter {
 	
 	private final MemberRepository memRepo;
+	
+	// 임시 전역 변수 (개선 필요)
+	static String usernames;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
@@ -41,6 +44,8 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 	
 	// 토큰에서 username 추출
 	String username = JWT.require(Algorithm.HMAC256("edu.pnu.jwt")).build().verify(jwtToken).getClaim("username").asString();
+	
+	usernames = username;
 	
 	// 증명서에 담긴 username으로 해당하는 권한을 검색
 	Optional<Member> opt = memRepo.findById(username);
