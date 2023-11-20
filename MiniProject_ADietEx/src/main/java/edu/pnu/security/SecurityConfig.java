@@ -51,6 +51,7 @@ public class SecurityConfig {
 				);
 		
 		http.csrf(cs->cs.disable());
+		http.cors(co->co.disable());
 		
 		http.formLogin(frmLogin->frmLogin.disable());
 		http.httpBasic(basic->basic.disable());
@@ -62,20 +63,19 @@ public class SecurityConfig {
 		http.sessionManagement(ssmn->ssmn.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		
 		// 로그인 인증 및 토큰 등록
-		http.addFilter(new JWTAuthenticationFilter(authenticationConfiguration.getAuthenticationManager()));
+//		http.addFilter(new JWTAuthenticationFilter(authenticationConfiguration.getAuthenticationManager()));
 		
-		http.addFilterBefore(new JWTAuthorizationFilter(memRepo), AuthorizationFilter.class);
+//		http.addFilterBefore(new JWTAuthorizationFilter(memRepo), AuthorizationFilter.class);
 
 		return http.build();
 	}
 	
-	@Bean
 	CorsFilter corsFilter() {
 		CorsConfiguration config = new CorsConfiguration();
 	//	config.addAllowedOrigin("http://10.125.121.211:3000"); // 교차를 허용할 Origin
 		config.addAllowedOrigin("http://localhost:3000");
-		config.addAllowedMethod(CorsConfiguration.ALL); // 교차를 허용할 Method
-		config.addAllowedHeader(CorsConfiguration.ALL); // 교차를 허용할 Header
+		config.addAllowedMethod("*"); // 교차를 허용할 Method
+		config.addAllowedHeader("*"); // 교차를 허용할 Header
 		config.addExposedHeader("Authorization");
 		config.setAllowCredentials(true); // 요청/응답에 자격증명정보 포함을 허용
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

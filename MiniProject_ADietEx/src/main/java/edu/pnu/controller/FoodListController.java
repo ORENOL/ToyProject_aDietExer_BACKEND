@@ -29,7 +29,7 @@ public class FoodListController {
 		return list;
 	}
 	
-	@PostMapping("/getFoodList")
+	@PostMapping("/searchFoodList")
 	public List<FoodList> getFoodListByname(@RequestBody String foodname) {
 		List<FoodList> list = FLservice.getFoodListByname(foodname);
 		return list;

@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import edu.pnu.domain.Member;
+import edu.pnu.domain.Role;
 import edu.pnu.persistence.MemberRepository;
 
 @Service
@@ -42,6 +43,7 @@ public class MemberService{
 
 	public void signUp(Member member) {
 		member.setPassword(encoder.encode(member.getPassword()));
+		member.setRole(Role.ROLE_MEMBER);
 		memRepo.save(member);
 		
 	}

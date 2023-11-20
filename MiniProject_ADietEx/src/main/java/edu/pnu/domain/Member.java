@@ -29,7 +29,6 @@ public class Member {
 	@Id
 	private String username;
 	private String password;
-	private String nickname;
 	@Temporal(TemporalType.TIMESTAMP)
 	@Builder.Default
 	private Date regidate = new Date();
