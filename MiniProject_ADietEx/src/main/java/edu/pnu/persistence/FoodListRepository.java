@@ -11,15 +11,15 @@ import edu.pnu.domain.FoodList;
 
 public interface FoodListRepository extends JpaRepository<FoodList, String> {
 	
-	List<FoodList> findAllBy식품명Containing(String foodname);
+//	List<FoodList> findAllByFood_nameContaining(String foodname);
+//	
+//	List<FoodList> findFirst100ByFood_nameContaining(String foodname);
+//	
+//	List<FoodList> findFirst100ByFood_nameContainingOrderByfood_nameAsc(String foodname);
 	
-	List<FoodList> findFirst100By식품명Containing(String foodname);
+//	List<FoodList> findByfood_nameStartingWith(String foodname);
 	
-	List<FoodList> findFirst100By식품명ContainingOrderBy식품명Asc(String foodname);
-	
-	List<FoodList> findBy식품명StartingWith(String 식품명);
-	
-	@Query(value = "SELECT * FROM food_list WHERE REPLACE(식품명, ' ', '') LIKE %:foodname% ORDER BY LENGTH(식품명) LIMIT 100", nativeQuery = true)
-	List<FoodList> findFirst100By식품명ContainingOrderByLength식품명(@Param("foodname") String foodname);
+	@Query(value = "SELECT * FROM food_list WHERE REPLACE(food_name, ' ', '') LIKE %:food_name% ORDER BY LENGTH(food_name) LIMIT 100", nativeQuery = true)
+	List<FoodList> findFirst100ByFood_nameContainingOrderByLengthfood_name(@Param("food_name") String foodname);
 
 }

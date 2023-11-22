@@ -22,7 +22,7 @@ public class FoodList {
 	
 	@Id
 	@JsonIgnore
-	private String 식품코드;
+	private String food_code;
 	private String food_name; // 식단 이름
 	private float serving_size; // 제공량
 	private float intake_size;

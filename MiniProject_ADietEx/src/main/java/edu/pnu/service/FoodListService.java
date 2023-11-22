@@ -33,7 +33,7 @@ public class FoodListService{
 
 		System.out.println(foodName);
 		
-		List<FoodList> list = FLRepo.findFirst100By식품명ContainingOrderByLength식품명(foodName);
+		List<FoodList> list = FLRepo.findFirst100ByFood_nameContainingOrderByLengthfood_name(foodName);
 		
 		return list;
 		
