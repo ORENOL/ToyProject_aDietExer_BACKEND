@@ -1,8 +1,10 @@
 package edu.pnu.controller;
 
 import java.util.List;
+
 import java.util.Optional;
 
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -44,7 +46,7 @@ public class DietController {
 	// 테스트용
     @GetMapping("/date")
     public ResponseEntity<Datehistory> getDateHistoryById() {
-        Optional<Datehistory> dateHistory = dateRepo.findById((long) 2);
+        Optional<Datehistory> dateHistory = dateRepo.findById((long) 1);
         Datehistory date = dateHistory.get();
         
 		List<Diet> list = dietRepo.findByDatehistory(date);
@@ -60,30 +62,14 @@ public class DietController {
 		return history;
 	}
 	
-	@GetMapping("/getDiet")
-	public List<Diet> getDiet(Member member, Diet diet) {
-		// 멤버가 등록한 특정 식단을 DB로부터 가져옴
-		return null;
-	}
-	
-	@GetMapping("/getDietOnDates")
-	public List<Diet> getDietOnDates(Diet diet, Authentication auth){
-		// 멤버가 등록한 특정일의 모든 식단을 DB로부터 가져옴
-		 List<Diet> list = foodService.getDietOnDates(diet, auth);
-		return list;
-	}
 	
 	@GetMapping("/addFood")
 	public void addDietView() {}
 	
-//	@PutMapping("/addFood")
-//	public void addDiet(Diet diet, Authentication auth) {
-//		foodService.addFood(diet, auth);
-//	}
-	
 	@PostMapping("/addFood")
-	public void addDiets(@RequestBody String diet) {
-		foodService.addFood(diet);
+	public void addDiets(@RequestBody String diet, Authentication auth) {
+		foodService.addFood(diet, auth);
+		
 	}
 	
 	@PutMapping("/updateDiet")

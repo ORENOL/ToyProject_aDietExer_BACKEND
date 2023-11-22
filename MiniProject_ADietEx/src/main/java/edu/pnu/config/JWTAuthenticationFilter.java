@@ -1,14 +1,17 @@
 package edu.pnu.config;
 
 import java.io.IOException;
+
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.stereotype.Component;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -21,26 +24,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
+
 @RequiredArgsConstructor
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 	private final AuthenticationManager authManager;
 	
-//	// Post /Login 요청 시 인증 시도 메소드
-//	@Override
-//	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
-//			throws AuthenticationException {
-//		return super.attemptAuthentication(request, response);
-//	}
+	@Value("${jwt.secret}") 
+	private String jwt_secret;
 	
-//	// 인증 성공시 후처리 메소드
-//	@Override
-//	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-//		super.successfulAuthentication(request, response, chain, authResult);
-//	}
-	
-	
-	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+		public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+		response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+
 		ObjectMapper mapper = new ObjectMapper();
 		Member member = null;
 	
@@ -54,6 +49,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		// 등록된 정보로 인증절차를 수행할 토큰 생성
 		Authentication authToken = new UsernamePasswordAuthenticationToken(member.getUsername(), member.getPassword());
 		
+		if (authManager == null) {
+			System.out.println("auth 없음");
+		}
+		
 		// 인증 절차 수행
 		Authentication auth = authManager.authenticate(authToken);
 		System.out.println("auth: " + auth);
@@ -63,13 +62,16 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	
 	// 인증이 성공한 경우
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+		
+
+		
 		// 인증 성공한 객체를 유저로 등록
 		User user = (User) authResult.getPrincipal();
 		// 인증이 성공했음을 증명할 증명서(토큰)를 제작
 		String token = JWT.create()
-				.withExpiresAt(new Date(System.currentTimeMillis()+1000*60*10))
+				.withExpiresAt(new Date(System.currentTimeMillis()+1000*60*10*100))
 				.withClaim("username", user.getUsername())
-				.sign(Algorithm.HMAC256("edu.pnu.jwt"));
+				.sign(Algorithm.HMAC256(jwt_secret));
 		// 증명서(토큰)을 헤더에 담아 클라이언트에게 전달
 		response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
 		response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
@@ -78,5 +80,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		response.setHeader("Access-Control-Expose-Headers", "Authorization");
 		response.addHeader("Authorization", "Bearer " + token);
 	}
-		
+
+
 }

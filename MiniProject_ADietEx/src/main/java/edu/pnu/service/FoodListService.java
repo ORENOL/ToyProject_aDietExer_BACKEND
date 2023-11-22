@@ -27,14 +27,13 @@ public class FoodListService{
 		
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			
-
 		JsonNode jsonNode = objectMapper.readTree(foodname);
 		String foodName = jsonNode.get("foodname").asText();
+		foodName = foodName.replace(" ", "");
 
 		System.out.println(foodName);
 		
-		List<FoodList> list = FLRepo.findFirst100By식품명Containing(foodName);
+		List<FoodList> list = FLRepo.findFirst100By식품명ContainingOrderByLength식품명(foodName);
 		
 		return list;
 		

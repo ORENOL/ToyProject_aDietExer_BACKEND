@@ -1,5 +1,6 @@
 package edu.pnu.domain;
 
+import java.sql.Blob;
 import java.util.List;
 
 
@@ -38,16 +39,16 @@ public class Datehistory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JsonIgnore
-	private long seq;
+	private Long seq;
 	private String date; // 먹은 날
 	@Enumerated(EnumType.STRING)
 	private Slot slot; // 아침, 점심, 저녁
-	private String img;  // Blob 구현 예정
+	private Blob img;  // Blob
 	
 	@OneToMany(mappedBy = "datehistory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Diet> diets;
 	
 	@ManyToOne
-    @JoinColumn(name = "member_username", insertable = false, updatable = false)
+    @JoinColumn(name = "member_username", updatable = false)
     private Member member;
 }
