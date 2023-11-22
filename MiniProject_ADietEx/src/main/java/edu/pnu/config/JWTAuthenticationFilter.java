@@ -1,7 +1,6 @@
 package edu.pnu.config;
 
 import java.io.IOException;
-
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -24,14 +23,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
-
 @RequiredArgsConstructor
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 	private final AuthenticationManager authManager;
 	
-	@Value("${jwt.secret}") 
-	private String jwt_secret;
+//	@Value("${jwt.secret}") 
+//	private String jwt_secret;
 	
 		public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 		response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
@@ -64,14 +62,13 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
 		
 
-		
 		// 인증 성공한 객체를 유저로 등록
 		User user = (User) authResult.getPrincipal();
 		// 인증이 성공했음을 증명할 증명서(토큰)를 제작
 		String token = JWT.create()
 				.withExpiresAt(new Date(System.currentTimeMillis()+1000*60*10*100))
 				.withClaim("username", user.getUsername())
-				.sign(Algorithm.HMAC256(jwt_secret));
+				.sign(Algorithm.HMAC256("jwt_edu_temp"));
 		// 증명서(토큰)을 헤더에 담아 클라이언트에게 전달
 		response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
 		response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");

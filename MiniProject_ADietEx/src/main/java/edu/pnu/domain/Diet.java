@@ -30,18 +30,29 @@ public class Diet {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long seq; // 시퀀스 id
 
-	private String 식품명; // 식단 이름
-	private String _1회제공량; // 제공량
-	private String 섭취량;
-	private String 칼로리; // 칼로리	
-	private String 탄수화물; // 탄수화물
-	private String 단백질; // 단백질
-	private String 지방; // 지방
-	private String 당류; // 당류
-	private String 나트륨; // 나트륨
-	private String 콜레스테롤; // 콜레스테롤
-	private String 포화지방; // 포화지방
-	private String 트랜스지방; // 트랜스지방
+	private String food_name; // 식단 이름
+	private float serving_size; // 제공량
+	private float intake_size;
+	private float kcal; // 칼로리	
+	private float carbohydrate; // 탄수화물
+	private float protein; // 단백질
+	private float fat; // 지방
+	private float sugars; // 당류
+	private float sodium; // 나트륨
+	private float cholesterol; // 콜레스테롤
+	private float saturated_fat; // 포화지방
+	private float trans_fat; // 트랜스지방
+	private float vita_b1;
+	private float vita_b2;
+	private float vita_b12;
+	private float vita_c;
+	private float magnesium;
+	private float calcium;
+	private float fiber;
+	private float water;
+	
+	
+	
 
 	@ManyToOne
 	@JoinColumn(name = "datehistory_seq")

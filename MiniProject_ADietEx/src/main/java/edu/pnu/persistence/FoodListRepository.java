@@ -19,7 +19,7 @@ public interface FoodListRepository extends JpaRepository<FoodList, String> {
 	
 	List<FoodList> findBy식품명StartingWith(String 식품명);
 	
-	@Query(value = "SELECT * FROM food_list WHERE REPLACE(식품명, ' ', '') LIKE %:foodname% ORDER BY LENGTH(식품명)", nativeQuery = true)
+	@Query(value = "SELECT * FROM food_list WHERE REPLACE(식품명, ' ', '') LIKE %:foodname% ORDER BY LENGTH(식품명) LIMIT 100", nativeQuery = true)
 	List<FoodList> findFirst100By식품명ContainingOrderByLength식품명(@Param("foodname") String foodname);
 
 }

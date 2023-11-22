@@ -27,8 +27,8 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 	
 	private final MemberRepository memRepo;
 	
-	@Value("${jwt.secret}")
-	private String jwt_secret;
+//	@Value("${jwt.secret}")
+//	private String jwt_secret;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
@@ -46,7 +46,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 	String jwtToken = srcToken.replace("Bearer ", "");
 	
 	// 토큰에서 username 추출
-	String username = JWT.require(Algorithm.HMAC256(jwt_secret)).build().verify(jwtToken).getClaim("username").asString();
+	String username = JWT.require(Algorithm.HMAC256("jwt_edu_temp")).build().verify(jwtToken).getClaim("username").asString();
 	
 	
 	// 증명서에 담긴 username으로 해당하는 권한을 검색

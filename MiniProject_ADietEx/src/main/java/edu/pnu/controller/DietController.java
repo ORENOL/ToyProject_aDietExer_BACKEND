@@ -1,16 +1,14 @@
 package edu.pnu.controller;
 
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 import java.util.Optional;
 
-import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,10 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.pnu.domain.Datehistory;
 import edu.pnu.domain.Diet;
-import edu.pnu.domain.Member;
+import edu.pnu.domain.DietRequest;
+import edu.pnu.domain.HealthInformation;
 import edu.pnu.persistence.DatehistoryRepository;
 import edu.pnu.persistence.DietRepository;
 import edu.pnu.service.FoodService;
+import edu.pnu.service.HealthInformationService;
 
 @RestController
 public class DietController {
@@ -29,57 +29,29 @@ public class DietController {
 	@Autowired
 	private FoodService foodService;
 	
-
-	
-	// 테스트용
-	@GetMapping("/username")
-	public String username(Authentication auth) {
-		return auth.getName();
-	}
-	
-	@Autowired
-	private DatehistoryRepository dateRepo;
-	
-	@Autowired
-	private DietRepository dietRepo;
-	
-	// 테스트용
-    @GetMapping("/date")
-    public ResponseEntity<Datehistory> getDateHistoryById() {
-        Optional<Datehistory> dateHistory = dateRepo.findById((long) 1);
-        Datehistory date = dateHistory.get();
-        
-		List<Diet> list = dietRepo.findByDatehistory(date);
-		
-		date.setDiets(list);
-        return ResponseEntity.ok(date);
-    }
-		
+	@Autowired 
+	private HealthInformationService HIService;
 	
 	@PostMapping("/getFoodList")
-	public Datehistory getAllDiet(@RequestBody String temp) {
+	public ResponseEntity<?> getAllDiet(@RequestBody String temp, Authentication auth) {
 		Datehistory history = foodService.getAllDiet(temp);
-		return history;
-	}
-	
-	
-	@GetMapping("/addFood")
-	public void addDietView() {}
-	
-	@PostMapping("/addFood")
-	public void addDiets(@RequestBody String diet, Authentication auth) {
-		foodService.addFood(diet, auth);
+		Optional<HealthInformation> HI = HIService.findbyMember(auth);
 		
+		Map<String, Object> objectMap = new HashMap<>();
+        objectMap.put("history", history);
+        objectMap.put("HI", HI);
+
+		return ResponseEntity.ok(objectMap);
 	}
 	
-	@PutMapping("/updateDiet")
-	public void updateDiet(Diet diet1, Diet diet2) {
-		// 멤버가 식단을 DB에서 수정함
-	}
 	
-	@DeleteMapping("/deleteDiet")
-	public void deleteDiet(Diet diet) {
-		foodService.deleteDiet(diet);
+//	@GetMapping("/addFood")
+//	public void addDietView() {}
+//	
+	@PostMapping("/addFood")
+	public ResponseEntity<?> addDiets(@RequestBody DietRequest diet, Authentication auth) {
+		foodService.addFood(diet, auth);
+		return ResponseEntity.ok("식단이 저장되었습니다.");
 	}
 }
 

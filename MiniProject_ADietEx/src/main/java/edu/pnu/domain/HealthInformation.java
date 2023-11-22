@@ -1,5 +1,7 @@
 package edu.pnu.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -19,15 +21,17 @@ public class HealthInformation {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonIgnore
 	private Long seq;
 
 	private String age;
 	private String weight;
 	private String gender;
 	private String height;
-	private String activityLevel;
+	private String activityFactor;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")
+	@JsonIgnore
 	private Member member;
 }

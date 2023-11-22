@@ -1,5 +1,7 @@
 package edu.pnu.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -19,31 +21,27 @@ import lombok.ToString;
 public class FoodList {
 	
 	@Id
+	@JsonIgnore
 	private String 식품코드;
-    private String 식품명;
-    private String _1회제공량;
-    private String 칼로리;
-    private String 수분;
-    private String 단백질;
-    private String 지방;
-    private String 탄수화물;
-    private String 당류;
-    private String 식이섬유;
-    private String 칼슘;
-    private String 철;
-    private String 마그네슘;
-    private String 인;
-    private String 칼륨;
-    private String 나트륨;
-    private String 아연;
-    private String 구리;
-    private String 망간;
-    private String 비타민B1;
-    private String 비타민B2;
-    private String 비타민B12;
-    private String 비타민C;
-    private String 포화지방산;
-    private String 콜레스테롤;
-    private String 트랜스지방산;
+	private String food_name; // 식단 이름
+	private float serving_size; // 제공량
+	private float intake_size;
+	private float kcal; // 칼로리	
+	private float carbohydrate; // 탄수화물
+	private float protein; // 단백질
+	private float fat; // 지방
+	private float sugars; // 당류
+	private float sodium; // 나트륨
+	private float cholesterol; // 콜레스테롤
+	private float saturated_fat; // 포화지방
+	private float trans_fat; // 트랜스지방
+	private float vita_b1;
+	private float vita_b2;
+	private float vita_b12;
+	private float vita_c;
+	private float magnesium;
+	private float calcium;
+	private float fiber;
+	private float water;
 	
 }
