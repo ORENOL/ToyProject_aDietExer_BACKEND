@@ -1,9 +1,7 @@
 package edu.pnu.domain;
 
-import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
-
 
 import org.springframework.stereotype.Repository;
 
