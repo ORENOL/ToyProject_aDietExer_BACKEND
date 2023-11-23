@@ -11,8 +11,12 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.nimbusds.oauth2.sdk.Response;
 
 import edu.pnu.domain.Member;
 import edu.pnu.service.MemberService;
@@ -20,6 +24,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 
 @RestController
+@RequestMapping("/api")
 public class SecurityController {
 
 	@Autowired
@@ -78,6 +83,12 @@ public class SecurityController {
 	public void regist(Member member) {
 		memService.signUp(member);
 		return;
+	}
+	
+	@PostMapping("/searchDuplicatedName")
+	public ResponseEntity<?> searchDuplicatedName(@RequestBody Member member) {
+		System.out.println(member);
+		return memService.searchDuplicatedName(member);
 	}
 	
 	@GetMapping("/logout")
