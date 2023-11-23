@@ -4,8 +4,12 @@ import java.util.Optional;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.nimbusds.oauth2.sdk.Response;
 
 import edu.pnu.domain.Member;
 import edu.pnu.domain.Role;
@@ -46,5 +50,16 @@ public class MemberService{
 		member.setRole(Role.ROLE_MEMBER);
 		memRepo.save(member);
 		
+	}
+
+
+	public ResponseEntity<?> searchDuplicatedName(@RequestBody Member members) {
+		Optional<Member> member = memRepo.findById(members.getUsername());
+		System.out.println(member);
+		if(member.isPresent()) {
+			return ResponseEntity.status(226).build();
+		} else {
+			return ResponseEntity.ok().build();
+		}
 	}
 }

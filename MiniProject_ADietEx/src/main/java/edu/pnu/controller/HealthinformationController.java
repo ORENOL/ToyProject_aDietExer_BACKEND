@@ -14,22 +14,22 @@ import edu.pnu.domain.HealthInformation;
 import edu.pnu.service.HealthInformationService;
 
 @RestController
-@RequestMapping("/health")
+@RequestMapping("/api")
 public class HealthinformationController {
 
 	@Autowired
 	private HealthInformationService HIService;
 	
-	@PostMapping("/add")
+	@PostMapping("/addUserInformation")
 	public ResponseEntity<?> addInfo(@RequestBody HealthInformation HI, Authentication auth) {
 		System.out.println(HI.toString());
 		HIService.createHealthInformation(HI, auth);
 		return ResponseEntity.ok("멤버 신체정보 등록 성공");
 	}
 	
-	@PostMapping("/get")
-	public ResponseEntity<?> getInfo(Authentication auth) {
-		Optional<HealthInformation> HI = HIService.findbyMember(auth);
-		return ResponseEntity.ok(HI);
-	}
+//	@PostMapping("/getUserInformation")
+//	public ResponseEntity<?> getInfo(Authentication auth) {
+//		Optional<HealthInformation> HI = HIService.findbyMember(auth);
+//		return ResponseEntity.ok(HI);
+//	}
 }

@@ -3,7 +3,6 @@ package edu.pnu.domain;
 import java.util.Date;
 import java.util.List;
 
-import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

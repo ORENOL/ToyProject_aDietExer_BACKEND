@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.pnu.domain.Datehistory;
@@ -24,6 +25,7 @@ import edu.pnu.service.FoodService;
 import edu.pnu.service.HealthInformationService;
 
 @RestController
+@RequestMapping("/api")
 public class DietController {
 	
 	@Autowired
@@ -32,7 +34,7 @@ public class DietController {
 	@Autowired 
 	private HealthInformationService HIService;
 	
-	@PostMapping("/getFoodList")
+	@PostMapping("/getUserInformation")
 	public ResponseEntity<?> getAllDiet(@RequestBody String temp, Authentication auth) {
 		Datehistory history = foodService.getAllDiet(temp);
 		Optional<HealthInformation> HI = HIService.findbyMember(auth);
@@ -48,7 +50,7 @@ public class DietController {
 //	@GetMapping("/addFood")
 //	public void addDietView() {}
 //	
-	@PostMapping("/addFood")
+	@PostMapping("/addFoodList")
 	public ResponseEntity<?> addDiets(@RequestBody DietRequest diet, Authentication auth) {
 		foodService.addFood(diet, auth);
 		return ResponseEntity.ok("식단이 저장되었습니다.");

@@ -25,7 +25,6 @@ public class FoodList {
 	private String food_code;
 	private String food_name; // 식단 이름
 	private float serving_size; // 제공량
-	private float intake_size;
 	private float kcal; // 칼로리	
 	private float carbohydrate; // 탄수화물
 	private float protein; // 단백질
