@@ -15,10 +15,10 @@ import edu.pnu.persistence.FoodListRepository;
 public class FoodListService{
 	
 	@Autowired
-	private FoodListRepository FLRepo;
+	private FoodListRepository foodListRepo;
 
 	public List<FoodList> FoodListAll() {
-		List<FoodList> list = FLRepo.findAll();
+		List<FoodList> list = foodListRepo.findAll();
 		return list;
 	}
 
@@ -33,7 +33,7 @@ public class FoodListService{
 
 		System.out.println(foodName);
 		
-		List<FoodList> list = FLRepo.findFirst100ByFood_nameContainingOrderByLengthfood_name(foodName);
+		List<FoodList> list = foodListRepo.findFirst100ByFood_nameContainingOrderByLengthfood_name(foodName);
 		
 		return list;
 		

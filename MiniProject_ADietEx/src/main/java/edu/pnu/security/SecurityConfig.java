@@ -43,7 +43,7 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(auth->auth
-				.requestMatchers(new AntPathRequestMatcher("/main/**")).authenticated()
+				.requestMatchers(new AntPathRequestMatcher("/**")).authenticated()
 				.anyRequest().permitAll()
 				);
 		

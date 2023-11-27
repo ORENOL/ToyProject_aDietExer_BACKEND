@@ -51,8 +51,9 @@ public class DietController {
 //	public void addDietView() {}
 //	
 	@PostMapping("/addFoodList")
-	public ResponseEntity<?> addDiets(@RequestBody DietRequest diet, Authentication auth) {
-		foodService.addFood(diet, auth);
+	public ResponseEntity<?> addDiets(@RequestBody DietRequest dietRequest, Authentication auth) {
+		System.out.println(dietRequest);
+		foodService.addFood(dietRequest, auth);
 		return ResponseEntity.ok("식단이 저장되었습니다.");
 	}
 }

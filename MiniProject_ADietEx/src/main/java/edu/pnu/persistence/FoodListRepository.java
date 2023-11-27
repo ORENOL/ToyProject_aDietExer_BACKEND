@@ -21,5 +21,7 @@ public interface FoodListRepository extends JpaRepository<FoodList, String> {
 	
 	@Query(value = "SELECT * FROM food_list WHERE REPLACE(food_name, ' ', '') LIKE %:food_name% ORDER BY LENGTH(food_name) LIMIT 100", nativeQuery = true)
 	List<FoodList> findFirst100ByFood_nameContainingOrderByLengthfood_name(@Param("food_name") String foodname);
+	
+	FoodList findByFood_name(String food_name);
 
 }
