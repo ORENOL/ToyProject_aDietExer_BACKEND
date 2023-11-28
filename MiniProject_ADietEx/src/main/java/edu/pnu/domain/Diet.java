@@ -3,6 +3,7 @@ package edu.pnu.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,8 +29,8 @@ public class Diet {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long seq; // 시퀀스 id
-
-	private String food_name; // 식단 이름
+	@Column(name = "food_name")
+	private String foodname; // 식단 이름
 	private float serving_size; // 제공량
 	private float intake_size;
 	private float kcal; // 칼로리	

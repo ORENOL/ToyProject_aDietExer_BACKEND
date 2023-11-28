@@ -1,7 +1,5 @@
 package edu.pnu.controller;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -14,7 +12,7 @@ import edu.pnu.domain.HealthInformation;
 import edu.pnu.service.HealthInformationService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/private")
 public class HealthinformationController {
 
 	@Autowired

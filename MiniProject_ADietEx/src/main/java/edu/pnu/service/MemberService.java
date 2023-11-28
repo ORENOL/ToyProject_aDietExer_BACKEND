@@ -2,14 +2,11 @@ package edu.pnu.service;
 
 import java.util.Optional;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
-
-import com.nimbusds.oauth2.sdk.Response;
 
 import edu.pnu.domain.Member;
 import edu.pnu.domain.Role;
@@ -61,5 +58,10 @@ public class MemberService{
 		} else {
 			return ResponseEntity.ok().build();
 		}
+	}
+
+
+	public Member findMember(String name) {
+		return memRepo.findById(name).get();
 	}
 }

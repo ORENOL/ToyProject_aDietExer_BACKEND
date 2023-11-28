@@ -6,9 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,15 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nimbusds.oauth2.sdk.Response;
-
 import edu.pnu.domain.Member;
 import edu.pnu.service.MemberService;
 import jakarta.servlet.http.HttpServletResponse;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/public")
 public class SecurityController {
 
 	@Autowired
@@ -44,11 +46,18 @@ public class SecurityController {
 	
 	// 로그인 세션 정보 확인용 URL
 	@GetMapping("/auth")
-	public @ResponseBody String auth(@AuthenticationPrincipal OAuth2User user) {
-		if (user == null) {
-			return "user is Null";
+	public @ResponseBody String auth(@AuthenticationPrincipal OAuth2User user, Authentication auth) {
+		
+		if (user != null) {
+			return user.getName();
 		}
-		return user.toString();
+		
+		if (auth != null) {
+			return auth.getName();
+		}
+		
+		
+		return "임시";
 	}
 	
 	@PostMapping("/oauth")

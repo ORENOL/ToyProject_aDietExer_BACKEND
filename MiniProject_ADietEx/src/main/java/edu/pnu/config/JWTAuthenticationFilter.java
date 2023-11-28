@@ -32,7 +32,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 //	private String jwt_secret;
 	
 		public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-//		response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
 
 		ObjectMapper mapper = new ObjectMapper();
 		Member member = null;

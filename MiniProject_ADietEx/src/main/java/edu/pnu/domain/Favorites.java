@@ -24,10 +24,11 @@ public class Favorites {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonIgnore
 	private long fav_id;
 	
 	@ManyToOne
-	@JoinColumn(name= "food_name")
+	@JoinColumn(name= "food_name", referencedColumnName = "food_name")
 	private FoodList foodlist;
 	
 	@JsonIgnore

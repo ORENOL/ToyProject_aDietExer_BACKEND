@@ -16,12 +16,14 @@ public interface FoodListRepository extends JpaRepository<FoodList, String> {
 //	List<FoodList> findFirst100ByFood_nameContaining(String foodname);
 //	
 //	List<FoodList> findFirst100ByFood_nameContainingOrderByfood_nameAsc(String foodname);
-	
-//	List<FoodList> findByfood_nameStartingWith(String foodname);
-	
+
+	// Limit 100
 	@Query(value = "SELECT * FROM food_list WHERE REPLACE(food_name, ' ', '') LIKE %:food_name% ORDER BY LENGTH(food_name) LIMIT 100", nativeQuery = true)
 	List<FoodList> findFirst100ByFood_nameContainingOrderByLengthfood_name(@Param("food_name") String foodname);
-	
-	FoodList findByFood_name(String food_name);
 
+	// Limit 10
+	@Query(value = "SELECT * FROM food_list WHERE REPLACE(food_name, ' ', '') LIKE %:food_name% ORDER BY LENGTH(food_name) LIMIT 10", nativeQuery = true)
+	List<FoodList> findFirst10ByFood_nameContainingOrderByLengthfood_name(@Param("food_name") String foodname);
+	
+	FoodList findByFoodname(String foodname);
 }

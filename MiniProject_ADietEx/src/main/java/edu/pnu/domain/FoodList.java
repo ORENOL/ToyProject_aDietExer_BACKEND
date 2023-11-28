@@ -1,9 +1,14 @@
 package edu.pnu.domain;
 
+
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,12 +23,14 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(indexes = @Index(name = "idx_foodname", columnList = "food_name"))
 public class FoodList {
 	
 	@Id
 	@JsonIgnore
 	private String food_code;
-	private String food_name; // 식단 이름
+	@Column(name = "food_name")
+	private String foodname; // 식단 이름
 	private float serving_size; // 제공량
 	private float kcal; // 칼로리	
 	private float carbohydrate; // 탄수화물

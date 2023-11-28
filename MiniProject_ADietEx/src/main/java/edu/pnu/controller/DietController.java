@@ -18,14 +18,17 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.pnu.domain.Datehistory;
 import edu.pnu.domain.Diet;
 import edu.pnu.domain.DietRequest;
+import edu.pnu.domain.Favorites;
+import edu.pnu.domain.FoodList;
 import edu.pnu.domain.HealthInformation;
 import edu.pnu.persistence.DatehistoryRepository;
 import edu.pnu.persistence.DietRepository;
+import edu.pnu.service.FavoritesService;
 import edu.pnu.service.FoodService;
 import edu.pnu.service.HealthInformationService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/private")
 public class DietController {
 	
 	@Autowired
@@ -34,14 +37,19 @@ public class DietController {
 	@Autowired 
 	private HealthInformationService HIService;
 	
+	@Autowired
+	private FavoritesService FavorService;
+	
 	@PostMapping("/getUserInformation")
 	public ResponseEntity<?> getAllDiet(@RequestBody String temp, Authentication auth) {
 		Datehistory history = foodService.getAllDiet(temp);
 		Optional<HealthInformation> HI = HIService.findbyMember(auth);
+		List<FoodList> Favor = FavorService.searchFavorites(auth);
 		
 		Map<String, Object> objectMap = new HashMap<>();
         objectMap.put("history", history);
         objectMap.put("HI", HI);
+        objectMap.put("Favor", Favor);
 
 		return ResponseEntity.ok(objectMap);
 	}

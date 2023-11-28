@@ -16,11 +16,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
 import edu.pnu.config.JWTAuthenticationFilter;
 import edu.pnu.config.JWTAuthorizationFilter;
 import edu.pnu.persistence.MemberRepository;
+import edu.pnu.service.OAuth2userDetailsService;
 
 
 @EnableWebSecurity
@@ -33,6 +33,9 @@ public class SecurityConfig {
 	@Autowired
 	private MemberRepository memRepo;
 	
+	@Autowired
+	private OAuth2userDetailsService oAuth2userDetailsService;
+	
 	@Bean
 	PasswordEncoder encoder() {
 		return new BCryptPasswordEncoder();
@@ -43,7 +46,7 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(auth->auth
-				.requestMatchers(new AntPathRequestMatcher("/**")).authenticated()
+				.requestMatchers(new AntPathRequestMatcher("/api/private/**")).authenticated()
 				.anyRequest().permitAll()
 				);
 		
@@ -55,9 +58,10 @@ public class SecurityConfig {
 		http.formLogin(frmLogin->frmLogin.disable());
 		http.httpBasic(basic->basic.disable());
 		
-//		http.oauth2Login(oauth2->{
-//			oauth2.loginPage("/login");
-//			});
+		http.oauth2Login(oauth2->oauth2
+				.loginPage("/login")
+				.userInfoEndpoint(end->end.userService(oAuth2userDetailsService))
+				.defaultSuccessUrl("/api/public/auth"));
 		
 		http.sessionManagement(ssmn->ssmn.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		
@@ -89,6 +93,7 @@ public class SecurityConfig {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration config = new CorsConfiguration();
 		config.addAllowedOrigin("http://localhost:3000");
+//		config.addAllowedOrigin("*");
 		config.addAllowedMethod("*"); // 교차를 허용할 Method
 		config.addAllowedHeader("*"); // 교차를 허용할 Header
 		config.addExposedHeader("Authorization");
