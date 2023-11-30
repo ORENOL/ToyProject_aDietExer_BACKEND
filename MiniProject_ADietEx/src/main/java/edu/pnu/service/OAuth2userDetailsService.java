@@ -4,11 +4,6 @@ import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -21,8 +16,6 @@ import com.auth0.jwt.algorithms.Algorithm;
 import edu.pnu.domain.Member;
 import edu.pnu.domain.Role;
 import edu.pnu.persistence.MemberRepository;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 @Service
 public class OAuth2userDetailsService extends DefaultOAuth2UserService {
@@ -52,9 +45,9 @@ public class OAuth2userDetailsService extends DefaultOAuth2UserService {
 			.withClaim("username", name)
 			.sign(Algorithm.HMAC256("jwt_edu_temp"));
 	
+	
 //	response.setHeader("Authorization", "Bearer" + token);
 //	response.setHeader("Access-Control-Expose-Headers", "Authorization");
-	asdf(HttpServletRequest request, http)
 	
 	System.out.println("JWT토큰: " + token);
 	
@@ -65,7 +58,4 @@ public class OAuth2userDetailsService extends DefaultOAuth2UserService {
 	return ouser;
 	}
 	
-	public String asdf() {
-		
-	}
 }

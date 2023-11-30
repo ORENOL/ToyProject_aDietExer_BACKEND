@@ -44,7 +44,8 @@ public class FoodListService{
 	}
 
 	public List<FoodList> fastSearch2(String foodname) {
-		List<FoodList> list = foodListRepo.findFirst10ByFood_nameContainingOrderByLengthfood_name(foodname);
+		
+		List<FoodList> list = foodListRepo.findtemp(foodname);
 		return list;
 	}
 

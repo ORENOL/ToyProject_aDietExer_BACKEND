@@ -8,21 +8,16 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.pnu.domain.Datehistory;
-import edu.pnu.domain.Diet;
 import edu.pnu.domain.DietRequest;
-import edu.pnu.domain.Favorites;
 import edu.pnu.domain.FoodList;
 import edu.pnu.domain.HealthInformation;
-import edu.pnu.persistence.DatehistoryRepository;
-import edu.pnu.persistence.DietRepository;
+import edu.pnu.domain.Nutrient;
 import edu.pnu.service.FavoritesService;
 import edu.pnu.service.FoodService;
 import edu.pnu.service.HealthInformationService;
@@ -54,15 +49,20 @@ public class DietController {
 		return ResponseEntity.ok(objectMap);
 	}
 	
-	
 //	@GetMapping("/addFood")
 //	public void addDietView() {}
-//	
+	
 	@PostMapping("/addFoodList")
 	public ResponseEntity<?> addDiets(@RequestBody DietRequest dietRequest, Authentication auth) {
 		System.out.println(dietRequest);
 		foodService.addFood(dietRequest, auth);
 		return ResponseEntity.ok("식단이 저장되었습니다.");
+	}
+	
+	@PostMapping("/getTodayTotalNutrient")
+	public ResponseEntity<?> getTodayTotalNutrient(@RequestBody String date){
+		List<Nutrient> list = foodService.getTodayTotalNutrient(date);
+		return ResponseEntity.ok(list);
 	}
 }
 

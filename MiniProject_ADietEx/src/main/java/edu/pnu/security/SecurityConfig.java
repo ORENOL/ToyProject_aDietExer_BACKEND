@@ -36,12 +36,13 @@ public class SecurityConfig {
 	@Autowired
 	private OAuth2userDetailsService oAuth2userDetailsService;
 	
+	@Autowired
+	private CustomOAuth2LoginSuccessHandler customOAuth2LoginSuccessHandler;
+	
 	@Bean
 	PasswordEncoder encoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
-
 	
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -61,6 +62,7 @@ public class SecurityConfig {
 		http.oauth2Login(oauth2->oauth2
 				.loginPage("/login")
 				.userInfoEndpoint(end->end.userService(oAuth2userDetailsService))
+				.successHandler(customOAuth2LoginSuccessHandler)
 				.defaultSuccessUrl("/api/public/auth"));
 		
 		http.sessionManagement(ssmn->ssmn.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

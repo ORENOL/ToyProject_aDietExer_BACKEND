@@ -3,6 +3,7 @@ package edu.pnu.persistence;
 
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,4 +19,6 @@ public interface DatehistoryRepository extends JpaRepository<Datehistory, Long> 
 	Optional<Datehistory> findByDateAndSlot(Date date, Slot slot);
 	
 	Optional<Datehistory> findByDateAndSlotAndMember(Date date, Slot slot, Member member);
+	
+	List<Datehistory> findByDate(Date date);
 }

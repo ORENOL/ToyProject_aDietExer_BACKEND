@@ -20,4 +20,5 @@ public class DietRequest {
 	private Slot slot;
 	private List<Diet> dietList;
 	private String img;
+	private Nutrient nutrient;
 }
