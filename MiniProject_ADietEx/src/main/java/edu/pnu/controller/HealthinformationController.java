@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.pnu.domain.HealthInformation;
 import edu.pnu.service.HealthInformationService;
 
 @RestController
@@ -19,15 +18,10 @@ public class HealthinformationController {
 	private HealthInformationService HIService;
 	
 	@PostMapping("/addUserInformation")
-	public ResponseEntity<?> addInfo(@RequestBody HealthInformation HI, Authentication auth) {
-		System.out.println(HI.toString());
+	public ResponseEntity<?> addInfo(@RequestBody String HI, Authentication auth) {
 		HIService.createHealthInformation(HI, auth);
+		HIService.addUserWeightDataHistory(HI, auth);
 		return ResponseEntity.ok("멤버 신체정보 등록 성공");
 	}
 	
-//	@PostMapping("/getUserInformation")
-//	public ResponseEntity<?> getInfo(Authentication auth) {
-//		Optional<HealthInformation> HI = HIService.findbyMember(auth);
-//		return ResponseEntity.ok(HI);
-//	}
 }

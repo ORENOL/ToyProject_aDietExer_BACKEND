@@ -42,13 +42,14 @@ public class MemberService{
 	}
 
 
-	public void signUp(Member member) {
-		member.setPassword(encoder.encode(member.getPassword()));
-		member.setRole(Role.ROLE_MEMBER);
-		memRepo.save(member);
+	public void signUp(@RequestBody Member member) {
+		Member m = new Member();
+		m.setUsername(member.getUsername());
+		m.setPassword(encoder.encode(member.getPassword()));
+		m.setRole(Role.ROLE_MEMBER);
+		memRepo.save(m);
 		
 	}
-
 
 	public ResponseEntity<?> searchDuplicatedName(@RequestBody Member members) {
 		Optional<Member> member = memRepo.findById(members.getUsername());

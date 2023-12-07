@@ -37,7 +37,7 @@ public class DietController {
 	
 	@PostMapping("/getUserInformation")
 	public ResponseEntity<?> getAllDiet(@RequestBody String temp, Authentication auth) {
-		Datehistory history = foodService.getAllDiet(temp);
+		Datehistory history = foodService.getAllDiet(temp,auth);
 		Optional<HealthInformation> HI = HIService.findbyMember(auth);
 		List<FoodList> Favor = FavorService.searchFavorites(auth);
 		
@@ -49,20 +49,32 @@ public class DietController {
 		return ResponseEntity.ok(objectMap);
 	}
 	
-//	@GetMapping("/addFood")
-//	public void addDietView() {}
-	
 	@PostMapping("/addFoodList")
 	public ResponseEntity<?> addDiets(@RequestBody DietRequest dietRequest, Authentication auth) {
-		System.out.println(dietRequest);
 		foodService.addFood(dietRequest, auth);
 		return ResponseEntity.ok("식단이 저장되었습니다.");
 	}
 	
+	/* 구현 완료 */
 	@PostMapping("/getTodayTotalNutrient")
-	public ResponseEntity<?> getTodayTotalNutrient(@RequestBody String date){
-		List<Nutrient> list = foodService.getTodayTotalNutrient(date);
+	public ResponseEntity<?> getTodayTotalNutrient(@RequestBody String date, Authentication auth){
+		List<Nutrient> list = foodService.getTodayTotalNutrient(date,auth);
 		return ResponseEntity.ok(list);
 	}
+	
+	/* 구현 완료 */
+	@PostMapping("/getMonthlyData")
+	public ResponseEntity<?> getMonthlyData(@RequestBody String date, Authentication auth){
+		Map<String,Object> map = foodService.getMonthlyData(date,auth);
+		return ResponseEntity.ok(map);
+	}
+	
+	/* 구현 완료 */
+	@PostMapping("/getMonthlyCaloriesAndWeights")
+	public ResponseEntity<?> getMonthlyCaloriesAndWeights(@RequestBody String date, Authentication auth){
+		Map<String,Object> map = foodService.getMonthlyCaloriesAndWeights(date,auth);
+		return ResponseEntity.ok(map);
+	}
+	
 }
 

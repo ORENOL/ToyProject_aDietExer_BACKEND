@@ -88,8 +88,8 @@ public class SecurityController {
 //        return new OAuth2Response(authUrl);
 //    }
 	
-	@PostMapping("/signUp")
-	public void regist(Member member) {
+	@PostMapping("/signup")
+	public void regist(@RequestBody Member member) {
 		memService.signUp(member);
 		return;
 	}

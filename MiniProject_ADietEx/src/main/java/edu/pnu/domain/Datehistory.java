@@ -35,7 +35,7 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
+@ToString(exclude = {"diets","nutrient","member"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -47,14 +47,17 @@ public class Datehistory {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JsonIgnore
 	private Long seq;
+	
 	@JsonIgnore
 	@Temporal(TemporalType.DATE)
 	private Date date; // 먹은 날
+	
 	@Enumerated(EnumType.STRING)
 	private Slot slot; // 아침, 점심, 저녁
+	
 	@Lob
     @Column(columnDefinition = "longtext")
-	private String img; 
+	private String img;
 	
 	@OneToMany(mappedBy = "datehistory", cascade = CascadeType.ALL)
     private List<Diet> diets;
@@ -68,4 +71,6 @@ public class Datehistory {
 	@JoinColumn(name = "nutrient_id")
 	@JsonIgnore
 	private Nutrient nutrient;
+	
+	private float weight;
 }

@@ -26,19 +26,6 @@ public class FoodListController {
 	@Autowired
 	private FavoritesService favorService;
 	
-	// 테스트용
-//	@GetMapping("/main/getFoodListAll")
-//	public List<FoodList> getFoodListAlls() {
-//		List<FoodList> list = FLservice.FoodListAll();
-//		return list;
-//	}
-//
-//	@PostMapping("/getFoodListAll")
-//	public List<FoodList> getFoodListAll() {
-//		List<FoodList> list = FLservice.FoodListAll();
-//		return list;
-//	}
-	
 	@PostMapping("/searchFoodList")
 	public ResponseEntity<?> getFoodListByname(@RequestBody String foodname) {
 		List<FoodList> list = foodListService.getFoodListByname(foodname);

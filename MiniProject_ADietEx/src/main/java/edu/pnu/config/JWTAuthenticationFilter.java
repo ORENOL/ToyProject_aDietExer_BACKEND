@@ -53,14 +53,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		// 인증 절차 수행
 		Authentication auth = authManager.authenticate(authToken);
 		System.out.println("auth: " + auth);
-		
 		return auth;
 	}
 	
 	// 인증이 성공한 경우
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-		
-
 		// 인증 성공한 객체를 유저로 등록
 		User user = (User) authResult.getPrincipal();
 		// 인증이 성공했음을 증명할 증명서(토큰)를 제작
@@ -68,13 +65,15 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 				.withExpiresAt(new Date(System.currentTimeMillis()+1000*60*10*100))
 				.withClaim("username", user.getUsername())
 				.sign(Algorithm.HMAC256("jwt_edu_temp"));
+		
 		// 증명서(토큰)을 헤더에 담아 클라이언트에게 전달
 //		response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
 //		response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
 //		response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
 //		response.setHeader("Access-Control-Allow-Credentials", "true");
-//		response.setHeader("Access-Control-Expose-Headers", "Authorization");
+//		response.setHeader("Access-Control-Expose-Headers", "username");
 		response.addHeader("Authorization", "Bearer " + token);
+		response.addHeader("username", authResult.getName());
 	}
 
 

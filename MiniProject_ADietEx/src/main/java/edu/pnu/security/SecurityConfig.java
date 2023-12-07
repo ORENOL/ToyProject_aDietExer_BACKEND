@@ -1,3 +1,4 @@
+
 package edu.pnu.security;
 
 
@@ -51,19 +52,17 @@ public class SecurityConfig {
 				.anyRequest().permitAll()
 				);
 		
-		
 		http.csrf(cs->cs.disable());
 		http.cors(co->co.configurationSource(corsConfigurationSource()));
 
-		
 		http.formLogin(frmLogin->frmLogin.disable());
 		http.httpBasic(basic->basic.disable());
 		
-		http.oauth2Login(oauth2->oauth2
-				.loginPage("/login")
-				.userInfoEndpoint(end->end.userService(oAuth2userDetailsService))
-				.successHandler(customOAuth2LoginSuccessHandler)
-				.defaultSuccessUrl("/api/public/auth"));
+//		http.oauth2Login(oauth2->oauth2
+//				.loginPage("/login")
+//				.userInfoEndpoint(end->end.userService(oAuth2userDetailsService))
+//				.successHandler(customOAuth2LoginSuccessHandler)
+//				.defaultSuccessUrl("/api/public/auth"));
 		
 		http.sessionManagement(ssmn->ssmn.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		
@@ -75,30 +74,17 @@ public class SecurityConfig {
 		return http.build();
 	}
 	
-//	@Bean
-//	CorsFilter corsFilter() {
-//		CorsConfiguration config = new CorsConfiguration();
-//	//	config.addAllowedOrigin("http://10.125.121.211:3000"); // 교차를 허용할 Origin
-//		config.addAllowedOrigin("http://localhost:3000");
-//		config.addAllowedMethod("*"); // 교차를 허용할 Method
-//		config.addAllowedHeader("*"); // 교차를 허용할 Header
-//		config.addExposedHeader("Authorization");
-//		config.setAllowCredentials(true); // 요청/응답에 자격증명정보 포함을 허용
-//		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//		source.registerCorsConfiguration("/**", config); // 교차를 허용할 Origin의 URL
-//		return new CorsFilter(source);
-//	}
-	
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration config = new CorsConfiguration();
 		config.addAllowedOrigin("http://localhost:3000");
-//		config.addAllowedOrigin("*");
+		config.addAllowedOrigin("http://10.125.121.211:3000");
 		config.addAllowedMethod("*"); // 교차를 허용할 Method
 		config.addAllowedHeader("*"); // 교차를 허용할 Header
 		config.addExposedHeader("Authorization");
+		config.addExposedHeader("username");
 		config.setAllowCredentials(true); // 요청/응답에 자격증명정보 포함을 허용
 		
 		source.registerCorsConfiguration("/**", config);
