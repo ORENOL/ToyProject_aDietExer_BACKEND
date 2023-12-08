@@ -21,4 +21,5 @@ public class DietRequest {
 	private List<Diet> dietList;
 	private String img;
 	private Nutrient nutrient;
+	private Float weight;
 }

@@ -50,6 +50,7 @@ public class FoodService {
 		String img = dietRequest.getImg();
 		Nutrient nutrient = dietRequest.getNutrient();
 		Optional<Member> member = memRepo.findById(auth.getName());
+		Float weight = dietRequest.getWeight();
 
 		// 이미 존재하는 식단기록인지 체크하기
 		Optional<Datehistory> existingHistory = dateRepo.findByDateAndSlotAndMember(date, slot, member.get());
@@ -74,6 +75,7 @@ public class FoodService {
 		history.setMember(member.get());
 		history.setImg(img);
 		history.setNutrient(nutrient);
+		history.setWeight(weight);
 		nutrient.setDatehistory(history);
 		dateRepo.save(history);
 		nutrientRepo.save(nutrient);
