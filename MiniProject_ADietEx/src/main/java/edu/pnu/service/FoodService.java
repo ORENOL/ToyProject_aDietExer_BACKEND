@@ -78,13 +78,12 @@ public class FoodService {
 		history.setWeight(weight);
 		nutrient.setDatehistory(history);
 		dateRepo.save(history);
-		nutrientRepo.save(nutrient);
 
 		for (Diet diet : dietlist) {
 			diet.setDatehistory(history);
 			dietRepo.save(diet);
 		}
-	}
+  	}
 
 	public Datehistory getAllDiet(@RequestBody String temp, Authentication auth) {
 
@@ -94,7 +93,6 @@ public class FoodService {
 		try {
 
 			JsonNode jsonNode = objectMapper.readTree(temp);
-
 			String StringDate = jsonNode.get("date").asText();
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = dateFormat.parse(StringDate);

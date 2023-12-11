@@ -57,9 +57,6 @@ public class HealthInformationService {
 			//키
 			float height = (float)jsonNode.get("height").asDouble();
 			
-			//몸무게
-			float weight = (float)jsonNode.get("weight").asDouble();
-			
 			//활동계수
 			int activityFactor = jsonNode.get("activityFactor").asInt();
 			

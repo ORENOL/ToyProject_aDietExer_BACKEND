@@ -17,6 +17,7 @@ public class HealthinformationController {
 	@Autowired
 	private HealthInformationService HIService;
 	
+	// 유저의 신체정보를 등록함
 	@PostMapping("/addUserInformation")
 	public ResponseEntity<?> addInfo(@RequestBody String HI, Authentication auth) {
 		HIService.createHealthInformation(HI, auth);

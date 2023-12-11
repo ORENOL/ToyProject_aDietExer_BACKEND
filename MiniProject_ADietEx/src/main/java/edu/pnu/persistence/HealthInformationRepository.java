@@ -1,12 +1,10 @@
 package edu.pnu.persistence;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
-
-import edu.pnu.domain.HealthInformation;
-import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import edu.pnu.domain.HealthInformation;
 import edu.pnu.domain.Member;
 
 

@@ -8,10 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.pnu.domain.Member;
 import edu.pnu.service.MemberService;
-import jakarta.servlet.http.HttpServletResponse;
 
 
 @RestController
@@ -37,12 +32,6 @@ public class SecurityController {
 	public Member getMember(Member member) {
 		return memService.getMember(member);
 	}
-		
-	@GetMapping("/test")
-	public String test(HttpServletResponse resp) {
-		resp.addHeader("Authorization", "ABCD");
-		return "하이";
-	}
 	
 	// 로그인 세션 정보 확인용 URL
 	@GetMapping("/auth")
@@ -55,51 +44,32 @@ public class SecurityController {
 		if (auth != null) {
 			return auth.getName();
 		}
-		
-		
 		return "임시";
 	}
 	
+	// 구글 로그인
 	@PostMapping("/oauth")
 	public ResponseEntity<?> oauth() {
 		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(URI.create("/login/oauth2/code/google"));
-		return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
+		headers.setLocation(URI.create("http://healthyfit3-env.eba-hmvcyftc.ap-northeast-2.elasticbeanstalk.com/oauth2/authorization/google"));
+		return new ResponseEntity<>(headers, HttpStatus.OK);
 	}
 	
-	@GetMapping("/oauth")
-	public ResponseEntity<?> oauths() {
-		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(URI.create("/login/oauth2/code/google"));
-		headers.add("Access-Control-Allow-Origin", "http://localhost:3000");
-		headers.add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-		headers.add("Access-Control-Allow-Headers", "Authorization, Content-Type");
-		headers.add("Access-Control-Allow-Credentials", "true");
-		return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
-	}
-	
-//    @Autowired
-//    private OAuth2Service oAuth2Service; // OAuth2Service는 실제 OAuth2 플로우를 처리하는 서비스 클래스
-//
-//    @GetMapping("/auth/google")
-//    public OAuth2Response getGoogleAuthUrl() {
-//        // 1. 프론트엔드에게 구글 로그인 요청을 보냄
-//        String authUrl = oAuth2Service.getGoogleAuthUrl();
-//        return new OAuth2Response(authUrl);
-//    }
-	
+	// 회원가입
 	@PostMapping("/signup")
 	public void regist(@RequestBody Member member) {
 		memService.signUp(member);
 		return;
 	}
 	
+	// 회원가입시 중복 아이디 체크
 	@PostMapping("/searchDuplicatedName")
 	public ResponseEntity<?> searchDuplicatedName(@RequestBody Member member) {
 		System.out.println(member);
 		return memService.searchDuplicatedName(member);
 	}
 	
+	// 로그아웃
 	@GetMapping("/logout")
 	public void logout() {}
 	

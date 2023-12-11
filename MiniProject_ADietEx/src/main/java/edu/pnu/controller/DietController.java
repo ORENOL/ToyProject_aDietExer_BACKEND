@@ -35,6 +35,7 @@ public class DietController {
 	@Autowired
 	private FavoritesService FavorService;
 	
+	// 유저의 식단기록, 신체정보, 즐겨찾기 정보를 가져옴
 	@PostMapping("/getUserInformation")
 	public ResponseEntity<?> getAllDiet(@RequestBody String temp, Authentication auth) {
 		Datehistory history = foodService.getAllDiet(temp,auth);
@@ -49,27 +50,28 @@ public class DietController {
 		return ResponseEntity.ok(objectMap);
 	}
 	
+	// 유저의 식단기록을 저장함
 	@PostMapping("/addFoodList")
 	public ResponseEntity<?> addDiets(@RequestBody DietRequest dietRequest, Authentication auth) {
 		foodService.addFood(dietRequest, auth);
 		return ResponseEntity.ok("식단이 저장되었습니다.");
 	}
 	
-	/* 구현 완료 */
+	// 오늘의 영양분을 가져옴
 	@PostMapping("/getTodayTotalNutrient")
 	public ResponseEntity<?> getTodayTotalNutrient(@RequestBody String date, Authentication auth){
 		List<Nutrient> list = foodService.getTodayTotalNutrient(date,auth);
 		return ResponseEntity.ok(list);
 	}
 	
-	/* 구현 완료 */
+	// 달력에 사용될 일일 칼로리 및 체중을 가져옴
 	@PostMapping("/getMonthlyData")
 	public ResponseEntity<?> getMonthlyData(@RequestBody String date, Authentication auth){
 		Map<String,Object> map = foodService.getMonthlyData(date,auth);
 		return ResponseEntity.ok(map);
 	}
 	
-	/* 구현 완료 */
+	// 그래프에 사용될 2주 칼로리 및 체중을 가져옴
 	@PostMapping("/getMonthlyCaloriesAndWeights")
 	public ResponseEntity<?> getMonthlyCaloriesAndWeights(@RequestBody String date, Authentication auth){
 		Map<String,Object> map = foodService.getMonthlyCaloriesAndWeights(date,auth);
