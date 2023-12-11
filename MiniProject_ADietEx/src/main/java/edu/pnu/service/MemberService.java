@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import edu.pnu.domain.Member;
-import edu.pnu.domain.Role;
+import edu.pnu.domain.enums.Role;
 import edu.pnu.persistence.MemberRepository;
 
 @Service

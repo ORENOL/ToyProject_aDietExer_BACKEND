@@ -1,4 +1,4 @@
-package edu.pnu.config;
+package edu.pnu.security;
 
 import java.io.IOException;
 import java.util.Optional;

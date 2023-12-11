@@ -22,7 +22,7 @@ import edu.pnu.domain.Diet;
 import edu.pnu.domain.DietRequest;
 import edu.pnu.domain.Member;
 import edu.pnu.domain.Nutrient;
-import edu.pnu.domain.Slot;
+import edu.pnu.domain.enums.Slot;
 import edu.pnu.persistence.DatehistoryRepository;
 import edu.pnu.persistence.DietRepository;
 import edu.pnu.persistence.MemberRepository;

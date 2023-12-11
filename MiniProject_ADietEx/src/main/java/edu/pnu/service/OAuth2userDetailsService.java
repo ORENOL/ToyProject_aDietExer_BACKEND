@@ -10,7 +10,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import edu.pnu.domain.Member;
-import edu.pnu.domain.Role;
+import edu.pnu.domain.enums.Role;
 import edu.pnu.persistence.MemberRepository;
 
 @Service

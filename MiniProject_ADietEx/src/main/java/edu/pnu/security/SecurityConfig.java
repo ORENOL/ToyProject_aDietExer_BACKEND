@@ -18,8 +18,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import edu.pnu.config.JWTAuthenticationFilter;
-import edu.pnu.config.JWTAuthorizationFilter;
 import edu.pnu.persistence.MemberRepository;
 import edu.pnu.service.OAuth2userDetailsService;
 

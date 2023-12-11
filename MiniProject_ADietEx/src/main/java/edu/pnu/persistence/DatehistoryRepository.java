@@ -12,7 +12,7 @@ import org.springframework.data.repository.query.Param;
 
 import edu.pnu.domain.Datehistory;
 import edu.pnu.domain.Member;
-import edu.pnu.domain.Slot;
+import edu.pnu.domain.enums.Slot;
 
 
 

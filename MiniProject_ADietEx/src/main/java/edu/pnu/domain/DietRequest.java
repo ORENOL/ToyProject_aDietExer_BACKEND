@@ -3,6 +3,7 @@ package edu.pnu.domain;
 import java.util.Date;
 import java.util.List;
 
+import edu.pnu.domain.enums.Slot;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

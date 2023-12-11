@@ -3,6 +3,7 @@ package edu.pnu.domain;
 
 import java.util.Date;
 
+import edu.pnu.domain.enums.Role;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

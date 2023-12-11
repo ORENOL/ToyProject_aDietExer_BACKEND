@@ -2,6 +2,7 @@ package edu.pnu.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import edu.pnu.domain.enums.Gender;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

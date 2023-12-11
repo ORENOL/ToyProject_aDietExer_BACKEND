@@ -14,10 +14,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.pnu.domain.Datehistory;
-import edu.pnu.domain.Gender;
 import edu.pnu.domain.HealthInformation;
 import edu.pnu.domain.Member;
-import edu.pnu.domain.Slot;
+import edu.pnu.domain.enums.Gender;
+import edu.pnu.domain.enums.Slot;
 import edu.pnu.persistence.DatehistoryRepository;
 import edu.pnu.persistence.HealthInformationRepository;
 import edu.pnu.persistence.MemberRepository;

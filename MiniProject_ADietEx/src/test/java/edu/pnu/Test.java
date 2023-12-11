@@ -5,7 +5,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import edu.pnu.domain.Member;
-import edu.pnu.domain.Role;
+import edu.pnu.domain.enums.Role;
 import edu.pnu.persistence.MemberRepository;
 
 @SpringBootTest
