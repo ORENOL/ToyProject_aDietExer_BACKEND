@@ -9,7 +9,7 @@ ToyProject_aDietExer_BACKEND
 - Amazon AWS ERD (DB)
 
 ## 프로젝트 소개 Notion
-- https://www.notion.so/Healthyfit-88fa67f6947c42cfb44add1140190f58
+- https://kminiproject-healthyfit.notion.site/Healthyfit-88fa67f6947c42cfb44add1140190f58
 
 ## Frontend 담당 Github
 - https://github.com/JisooOvO/kminiproject-dietapp
