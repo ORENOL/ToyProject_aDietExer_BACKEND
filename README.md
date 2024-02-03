@@ -12,7 +12,7 @@ ToyProject_aDietExer_BACKEND
 - https://kminiproject-healthyfit.notion.site/Healthyfit-88fa67f6947c42cfb44add1140190f58
 
 ## Frontend 담당 Github
-- https://github.com/JisooOvO/kminiproject-dietapp.
+- https://github.com/JisooOvO/kminiproject-dietapp
 
 ## ERD
 ![erd](https://github.com/ORENOL/ToyProject_aDietExer_BACKEND/assets/141015530/e9b6d955-7f80-4663-8c83-95da3ef440b0)
